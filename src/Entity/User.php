@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -11,6 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class User implements UserInterface
 {
+    const ROLE_ADMIN = "ROLE_ADMIN";
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -33,6 +35,34 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * @var
+     * @ORM\OneToMany(targetEntity=Annonces::class, mappedBy="utilisateurAnnonce", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $annonces;
+
+    public function __construct()
+    {
+        $this->annonces = new ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAnnonces()
+    {
+        return $this->annonces;
+    }
+
+    /**
+     * @param mixed $annonces
+     */
+    public function setAnnonces($annonces): void
+    {
+        $this->annonces = $annonces;
+    }
 
     public function getId(): ?int
     {

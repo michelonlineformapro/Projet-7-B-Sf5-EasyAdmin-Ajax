@@ -33,13 +33,16 @@ window.onload = () => {
             }).then(response => response.json())
                 .then(data => {
                     //Mise a jour de url page
-                    //Paramètre = des données + title de onglet + url historique ATTENTION pa d'ajax ici
-                    history.pushState({}, null, Url.pathname + "?" + Params.toString() + "&ajax=0")
+
                     //Inject dans le div vide
                     const content = document.querySelector("#resultat_categorie_ajax");
                     content.innerHTML = data.content
                     const link = document.querySelector("a.page-link")
-                    link.setAttribute('href', Url.pathname + "?" + Params.toString() + "&ajax=0");
+                    if(link){
+                        link.setAttribute('href', Url.pathname + "?" + Params.toString() + "&ajax=0");
+                    }
+                    //Paramètre = des données + title de onglet + url historique ATTENTION pa d'ajax ici
+                    history.pushState({}, null, Url.pathname + "?" + Params.toString() + "&ajax=0")
 
 
                     console.log(data.content)

@@ -18,7 +18,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * @Route("/annonces")
+ * @Route("/")
  */
 class AnnoncesController extends AbstractController
 {
@@ -39,7 +39,7 @@ class AnnoncesController extends AbstractController
 
         $pagination = $paginator->paginate(
             $annonce = $annoncesRepository->recherche($filtres),
-            $request->query->getInt('page',1),3,
+            $request->query->getInt('page',1),20
         );
 
 

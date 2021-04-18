@@ -11,6 +11,7 @@
     {% if app.user %}
         <div class="mb-3">
             Vous êtes connectez en tant que :  {{ app.user.username }}, <a class="btn btn-outline-danger" href="{{ path('app_logout') }}">DECONNEXION</a>
+            <a href="{{ path('utilisateur',{'id' : app.user.id }) }}" class="btn btn-outline-warning">Votre espace</a>
         </div>
     {% endif %}
 

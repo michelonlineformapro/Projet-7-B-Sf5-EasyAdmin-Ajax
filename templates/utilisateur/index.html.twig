@@ -1,6 +1,11 @@
+{% extends 'base.html.twig' %}
 
+{% block title %}Annonces UTILISATEURS{% endblock %}
+
+{% block body %}
+<h1 class="text-success">{{ app.user.email }}</h1>
     <div class="row">
-        {% for annonce in pagination %}
+        {% for annonce in annonces %}
             <div class="col-md-4 col-sm-12 mt-3">
                 <div class="card">
                     <img src="{{ vich_uploader_asset(annonce, 'photoImageFile') }}" class="card-img-top" alt="{{ annonce.nomAnnonce }}" title="{{ annonce.nomAnnonce }}">
@@ -21,17 +26,6 @@
             <div class="container mt-3">
                 <p class="text center alert alert-danger">Pas de résultats</p>
             </div>
-            {% set queryParams = app.request.query.all %}
-            {% set queryString = queryString|filter((v,k) => k != "page" and k != "ajax")|url_encode %}
         {% endfor %}
-
-        <!-- Pagination -->
-        <div class="navigation mt-3">
-
-            {{ knp_pagination_render(pagination) }}
-        </div>
-
-        {# Variables personalisées #}
-
     </div>
-
+{% endblock %}

@@ -111,7 +111,8 @@ class Annonces
     private $regionAnnonce;
 
     /**
-     * @ORM\ManyToOne(targetEntity=User::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=User::class,inversedBy="annonce", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
      */
     private $utilisateurAnnonce;
 

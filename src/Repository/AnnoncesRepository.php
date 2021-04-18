@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Annonces;
 use App\Entity\PropertySearch;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -52,4 +53,9 @@ class AnnoncesRepository extends ServiceEntityRepository
         }
         return $query;
     }
+
+    public function annoncesParUser(){
+
+    }
+
 }

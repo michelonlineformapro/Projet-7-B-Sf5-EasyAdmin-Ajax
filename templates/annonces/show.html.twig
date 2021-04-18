@@ -1,42 +1,25 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Annonces{% endblock %}
+{% block title %}Annonces Détails{% endblock %}
 
 {% block body %}
-    <h1>Annonces</h1>
+    <h1>Détails de l'annonces : {{ annonce.nomAnnonce }}</h1>
+    <div class="col-md-12 col-sm-12 mt-3">
+        <div class="card">
+            <img src="{{ vich_uploader_asset(annonce, 'photoImageFile') }}" class="card-img-top" alt="{{ annonce.nomAnnonce }}" title="{{ annonce.nomAnnonce }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ annonce.nomAnnonce }}</h5>
+                <p class="card-text">Description : {{ annonce.descriptionAnnonce }}</p>
+                <p class="card-text">PRIX : {{ annonce.prixAnnonce }} €</p>
+                <p class="card-text">Catégories : <b class="text-danger">{{ annonce.categoriesAnnonce.typeCategories }}</b></p>
+                <p class="card-text">Régions : {{ annonce.regionAnnonce.nomRegion }}</p>
+                <p class="card-text">Email du vendeur : {{ annonce.utilisateurAnnonce.email }}</p>
+                <p class="card-text">Date de dépot : {{ annonce.dateAnnonce ? annonce.dateAnnonce|date('Y-m-d H:i:s') : '' }}</p>
+                <a class="btn btn-outline-success" href="{{ path('annonces_index') }}">Retour</a>
+                <a href="" class="btn btn-outline-warning">Ajouter au panier</a>
+            </div>
+        </div>
+    </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ annonce.id }}</td>
-            </tr>
-            <tr>
-                <th>NomAnnonce</th>
-                <td>{{ annonce.nomAnnonce }}</td>
-            </tr>
-            <tr>
-                <th>DescriptionAnnonce</th>
-                <td>{{ annonce.descriptionAnnonce }}</td>
-            </tr>
-            <tr>
-                <th>PrixAnnonce</th>
-                <td>{{ annonce.prixAnnonce }}</td>
-            </tr>
-            <tr>
-                <th>PhotoAnnonce</th>
-                <td>{{ annonce.photoAnnonce }}</td>
-            </tr>
-            <tr>
-                <th>DateAnnonce</th>
-                <td>{{ annonce.dateAnnonce ? annonce.dateAnnonce|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
 
-    <a href="{{ path('annonces_index') }}">back to list</a>
-
-    <a href="{{ path('annonces_edit', {'id': annonce.id}) }}">edit</a>
-
-    {{ include('annonces/_delete_form.html.twig') }}
 {% endblock %}
