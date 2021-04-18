@@ -1,0 +1,43 @@
+ROLE_USER:
+utilisateur@gmail.com
+utilisateur
+
+
+ROLE_ADMIN
+administrateur@gmail.com
+administrateur
+
+ROLE_SUPER_ADMIN
+super-administrateur@gmail.com
+superadmin
+
+LES ETAPES
+
+https://symfony.com/doc/current/bundles/EasyAdminBundle/index.html
+
+
+A - USERS
+    1- composer require security
+    2- php bin/console make:user
+    3- php bin/console make:auth
+    4- php bin/console make:controller RegisterController
+    5- php bin/console make:form = RegisterType
+    6- Decommenter Security.yaml
+
+
+0 - Creer les entités et les jointures
+1 - composer require easycorp/easyadmin-bundle
+2 - php bin/console make:admin:dashboard
+3 - php bin/console make:admin:crud
+(Choisir les entitées concernées)
+
+
+Upload de photo dans easyAdmin3
+
+0 - composer require vich/uploader-bundle
+1 - creer fichier :
+
+# config/packages/vich_uploader.yaml
+vich_uploader:
+    db_driver: orm
+2 -

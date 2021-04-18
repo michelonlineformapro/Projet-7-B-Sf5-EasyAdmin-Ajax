@@ -1,0 +1,31 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-info">
+    <a class="navbar-brand" href="{{ path('annonces_index') }}">
+        <img src="{{ asset('img/sf_logo.png') }}" alt="Symfony 5" title="Symfony 5"/>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ path('annonces_index') }}"><b class="h5">ANNONCES</b> <span class="sr-only">(current)</span></a>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link" href="{{ path('recherche') }}"><b class="h5">RECHERCHER</b></a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Rechercher" aria-label="Search">
+            <button class="btn btn-success my-2 my-sm-0" type="submit">Rechercher</button>
+            {% if app.user %}
+                <a class="nav-link" href="{{ path('app_logout') }}"><b class="h5">DECONNEXION</b></a>
+            {% elseif not app.user %}
+                <a class="nav-link" href="{{ path('app_login') }}"><b class="h5">CONNEXION</b></a>
+            {% endif %}
+            <a class="nav-link" href="{{ path('register') }}"><b class="h5">INSCRIPTION</b></a>
+        </form>
+    </div>
+</nav>

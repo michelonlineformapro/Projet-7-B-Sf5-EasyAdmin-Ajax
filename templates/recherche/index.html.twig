@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SF5 RECHERCHE{% endblock %}
+
+{% block body %}
+
+        <h2 class="text-warning">RECHERCHER UN PRODUIT</h2>
+        {{ form_start(form_search) }}
+        {{ form_row(form_search.la_categories) }}
+        {{ form_row(form_search.la_region) }}
+        {{ form_row(form_search.maxPrix) }}
+        <button type="submit" class="btn btn-outline-success">Rechercher</button>
+        {{ form_end(form_search) }}
+    <div class="row">
+        {% for annonce in pagination %}
+            <div class="col-md-4 col-sm-12 mt-3">
+                <div class="card">
+                    <img src="{{ vich_uploader_asset(annonce, 'photoImageFile') }}" class="card-img-top" alt="{{ annonce.nomAnnonce }}" title="{{ annonce.nomAnnonce }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ annonce.nomAnnonce }}</h5>
+                        <p class="card-text">Description : {{ annonce.descriptionAnnonce }}</p>
+                        <p class="card-text">PRIX : {{ annonce.prixAnnonce }} €</p>
+                        <p class="card-text">Catégories : <b class="text-danger">{{ annonce.categoriesAnnonce.typeCategories }}</b></p>
+                        <p class="card-text">Régions : {{ annonce.regionAnnonce.nomRegion }}</p>
+                        <p class="card-text">Email du vendeur : {{ annonce.utilisateurAnnonce.email }}</p>
+                        <p class="card-text">Date de dépot : {{ annonce.dateAnnonce ? annonce.dateAnnonce|date('Y-m-d H:i:s') : '' }}</p>
+                    </div>
+                </div>
+            </div>
+
+        {% else %}
+            <div class="container mt-3">
+                <p class="text center alert alert-danger">Pas de résultats</p>
+            </div>
+        {% endfor %}
+    </div>
+    <!-- Pagination -->
+    <div class="navigation mt-3">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+{% endblock %}

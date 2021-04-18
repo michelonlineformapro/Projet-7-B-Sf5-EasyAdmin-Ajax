@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Annonces SF5 Inscription{% endblock %}
+
+{% block body %}
+
+        <h1 class="text-warning">INSCRIPTION</h1>
+        <!--Appel du $form->createView() du controller -->
+        {{ form_start(form_user) }}
+
+        {{ form_row(form_user.email) }}
+        {{ form_row(form_user.roles) }}
+        {{ form_row(form_user.password) }}
+
+        {{ form_end(form_user) }}
+
+{% endblock %}

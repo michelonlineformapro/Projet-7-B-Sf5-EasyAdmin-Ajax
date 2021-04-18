@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{# Variables personalisées #}
+{% set queryParams = app.request.query.all %}
+
+{% block title %}Annonces -ACCUEIL-{% endblock %}
+
+{% block body %}
+
+    {# dump(queryParams) #}
+    {# dump(queryString)  #}
+
+    <h1 class="text-info text-center">TOP ANNONCES</h1>
+
+        <!-- source : https://www.youtube.com/watch?v=25IqZbLYoK0 -->
+        <div class="container-fluid mt-5">
+            <div class="row">
+                <div class="col-sm-12 col-md-3">
+                    <form id="filtres">
+                        <div class="form-group">
+                            <h3 class="text-danger">Catégories : </h3>
+                            {% for categorie in categories %}
+                                {# Verifier si une case est cochée #}
+                                    {% if queryParams is not empty and queryParams.categories is defined %}
+                                        {# ternaire twig #}
+                                        {# Si categorie id est dans url alors checked = true sion = false #}
+                                        {% set checked = (categorie.id in queryParams.categories) ? "checked" : "" %}
+                                    {% else %}
+                                        {% set checked = "" %}
+                                    {% endif %}
+
+                                <div class="form-check alert alert-warning p-4">
+                                <input {{ checked }} type="checkbox" name="categories[]" value="{{ categorie.id }}" id="cat{{ categorie.id }}"  class="form-check-input">
+                                <label style="font-size: 1rem" class="form-check-label" for="cat{{ categorie.id }}">{{ categorie.typeCategories }}</label>
+                                </div>
+                            {% endfor %}
+                            <input type="hidden" value="{{ page }}">
+                        </div>
+                    </form>
+                </div>
+                    <div id="resultat_categorie_ajax" class="col-sm-12 col-md-9">
+                        <div class="row">
+                            {% for annonce in pagination %}
+                                <div class="col-md-4 col-sm-12 mt-3">
+                                    <div class="card">
+                                        <img src="{{ vich_uploader_asset(annonce, 'photoImageFile') }}" class="card-img-top" alt="{{ annonce.nomAnnonce }}" title="{{ annonce.nomAnnonce }}">
+                                        <div class="card-body">
+                                            <h5 class="card-title">{{ annonce.nomAnnonce }}</h5>
+                                            <p class="card-text">Description : {{ annonce.descriptionAnnonce }}</p>
+                                            <p class="card-text">PRIX : {{ annonce.prixAnnonce }} €</p>
+                                            <p class="card-text">Catégories : <b class="text-danger">{{ annonce.categoriesAnnonce.typeCategories }}</b></p>
+                                            <p class="card-text">Régions : {{ annonce.regionAnnonce.nomRegion }}</p>
+                                            <p class="card-text">Email du vendeur : {{ annonce.utilisateurAnnonce.email }}</p>
+                                            <p class="card-text">Date de dépot : {{ annonce.dateAnnonce ? annonce.dateAnnonce|date('Y-m-d H:i:s') : '' }}</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            {% else %}
+                                <div class="container mt-3">
+                                    <p class="text center alert alert-danger">Pas de résultats</p>
+                                </div>
+
+                            {% endfor %}
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/filtres.js') }}"></script>
+{% endblock %}
